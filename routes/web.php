@@ -15,8 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// if (env('APP_ENV') === 'production' || env('APP_ENV') === 'local') {
+//     URL::forceScheme('https');
+// } 
+
 Route::resource('posts', 'PostController');
 
 if (env('APP_ENV') === 'local') {
-    URL::forceScheme('https');
+    URL::forceScheme('http');
 }
