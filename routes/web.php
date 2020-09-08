@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
 // if (env('APP_ENV') === 'production' || env('APP_ENV') === 'local') {
 //     URL::forceScheme('https');
@@ -21,6 +21,12 @@ Route::get('/', function () {
 
 Route::resource('posts', 'PostController');
 
-if (env('APP_ENV') === 'local') {
-    URL::forceScheme('http');
-}
+Route::get('/', 'TopController@index')->name('top');
+
+Route::post('search', 'TopController@search');
+// if (env('APP_ENV') === 'local') {
+//     URL::forceScheme('http');
+// }
+
+Auth::routes();
+// Route::get('/home', 'HomeController@index')->name('home');

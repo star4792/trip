@@ -37,10 +37,16 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $post = new Post();
-        $post->title = $request->input('title');
-        $post->content = $request->input('content');
-        $post->save();
-
+        // $post->title = $request->input('title');
+        // $post->content = $request->input('content');
+        // $post->category = $request->input('category');
+        $filename = $request->file('image')->getClientOriginalName();
+        $storedata = array_replace($request->all(), array('image' => $filename));
+                
+        $post->fill($storedata)->save();
+        
+        $request->file('image')->storeAs('public/'.$post->id.'/', $filename);
+        
         return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'Post was successfully created.');
     }
 
@@ -50,9 +56,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        return view('posts.show', compact('post'));
+        $posts = Post::find($id);  
+        return view('posts.show', compact('posts'));
     }
 
     /**
