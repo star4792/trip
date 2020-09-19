@@ -1,4 +1,4 @@
-@extends('layouts.layouts')
+@extends('layouts.admin_layouts')
 
 @section('title', 'Trip')
 

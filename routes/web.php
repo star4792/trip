@@ -20,6 +20,7 @@
 // } 
 
 Route::resource('posts', 'PostController');
+Route::resource('guides', 'GuideController');
 
 Route::get('/', 'TopController@index')->name('top');
 
@@ -30,3 +31,7 @@ Route::post('search', 'TopController@search');
 
 Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'auth'], function() { 
+    Route::resource('posts', 'PostController');
+ });
